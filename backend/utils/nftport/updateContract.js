@@ -64,11 +64,11 @@
       updateValue = PUBLIC_MINT_START_DATE;
       break;
     case "presale_mint_start_date":
-      contract.presale_mint_start_date = PRESALE_MINT_START_DATE;
-      updateValue = PRESALE_MINT_START_DATE;
+      contract.presale_mint_start_date = null;
+      updateValue = null;
       break;
     case "presale_whitelisted_addresses":
-      const addresses_add = PRESALE_WHITELISTED_ADDRESSES.map((address) =>
+      const addresses_add = [].map((address) =>
         address.toLowerCase()
       );
       const existingAddresses = await getWhiteList();
@@ -76,34 +76,34 @@
         ...existingAddresses,
         ...addresses_add,
       ];
-      updateValue = `include ${PRESALE_WHITELISTED_ADDRESSES}`;
+      updateValue = `include ${[]}`;
       break;
     case "presale_whitelisted_addresses_remove":
-      const addresses_remove = PRESALE_WHITELISTED_ADDRESSES.map((address) =>
+      const addresses_remove = [].map((address) =>
         address.toLowerCase()
       );
       const existingAddressesList = await getWhiteList();
       const updatedAddresses = existingAddressesList.filter((address) => !addresses_remove.includes(address));
       contract.presale_whitelisted_addresses = updatedAddresses;
-      updateValue = `remove ${PRESALE_WHITELISTED_ADDRESSES}`;
+      updateValue = `remove ${[]}`;
       break;
     case "royalty_share":
-      contract.royalty_share = ROYALTY_SHARE;
-      updateValue = ROYALTY_SHARE;
+      contract.royalty_share = 500;
+      updateValue = 500;
       break;
     case "royalty_address":
-      contract.royalty_address = ROYALTY_ADDRESS;
-      updateValue = ROYALTY_ADDRESS;
+      contract.royalty_address = 0x2a9718d0211A78F3D695f92Ac3a39BC5D3FFa421;
+      updateValue = 0x2a9718d0211A78F3D695f92Ac3a39BC5D3FFa421;
       break;
     case "base_uri":
-      if (!BASE_URI) {
+      if (!null) {
         try {
           let jsonFile = fs.readFileSync(
             `${basePath}/build/ipfsMetas/_ipfsMetasResponse.json`
           );
           let metaData = JSON.parse(jsonFile);
           if (metaData.response === "OK" && metaData.error === null) {
-            BASE_URI = metaData.metadata_directory_ipfs_uri;
+            null = metaData.metadata_directory_ipfs_uri;
           } else {
             console.log(
               'There is an issue with the metadata upload. Please check the /build/_ipfsMetas/_ipfsMetasResponse.json file for more information. Running "npm run upload_metadata" may fix this issue.'
@@ -116,18 +116,18 @@
           process.exit(0);
         }
       }
-      contract.base_uri = BASE_URI;
-      updateValue = BASE_URI;
+      contract.base_uri = null;
+      updateValue = null;
       break;
     case "prereveal_token_uri":
-      if (!PREREVEAL_TOKEN_URI) {
+      if (!null) {
         try {
           let jsonFile = fs.readFileSync(
             `${basePath}/build/ipfsMetasGeneric/_ipfsMetasResponse.json`
           );
           let metaData = JSON.parse(jsonFile);
           if (metaData.response === "OK" && metaData.error === null) {
-            PREREVEAL_TOKEN_URI = metaData.metadata_uri;
+            null = metaData.metadata_uri;
           } else {
             console.log(
               'There is an issue with the metadata upload. Please check the /build/_ipfsMetasGeneric/_ipfsMetasResponse.json file for more information. Running "npm run upload_metadata" may fix this issue.'
@@ -141,8 +141,8 @@
           process.exit(0);
         }
       }
-      contract.prereveal_token_uri = PREREVEAL_TOKEN_URI;
-      updateValue = PREREVEAL_TOKEN_URI;
+      contract.prereveal_token_uri = null;
+      updateValue = null;
       break;
     default:
       console.log("Invalid update statement. Exiting...");
